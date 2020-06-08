@@ -48,7 +48,7 @@ class Sketch : NSObject {
         }
         
     }
-    
+    let x: Double = random(in: 0...360)
     // This function runs repeatedly, forever, to create the animated effect
     func draw() {
         
@@ -69,15 +69,20 @@ class Sketch : NSObject {
         }
         
         // See what's happening with the microphone, if AudioKit is available
-        var hue: Double = 180
+        
+        
+        //for testing purposes print x
+        print(x)
+        
         var brightness: Double = 5
+        var hue: Double = x
         
         if audioKitStarted {
             
             updateMicrophoneInputAnalysis()
             
             // Adjust how brightness changes based on aplitude
-            hue = map(value: tracker.frequency, fromLower: 0, fromUpper: 2500, toLower: 140, toUpper: 240)
+            hue = map(value: tracker.frequency, fromLower: 0, fromUpper: 2500, toLower: x, toUpper: x + 100)
             brightness = map(value: tracker.amplitude, fromLower: 0, fromUpper: 1, toLower: 25, toUpper: 100)
             
             // DEBUG: Print pitch and amplitude
