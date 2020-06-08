@@ -51,10 +51,26 @@ class Sketch : NSObject {
     
     // this variable won't update since it is outside the draw function
     // Use x to randomly choose a colour for the animation
-    let x: Double = random(in: 0...360)
+    var x: Double = random(in: 0...360)
    
+    
     // This function runs repeatedly, forever, to create the animated effect
     func draw() {
+    
+        //every 15 seconds
+        if canvas.frameCount % 1000 == 0{
+            
+            //colour of animation changes
+            if x + 25 > 360{
+                x = 0
+            } else {
+                x += 25
+            }
+        }
+    
+        
+        //DEBUG: Print x values
+        print("\(x) is the x value")
         
         // Clear the canvas
         //clearCanvas()
@@ -78,6 +94,7 @@ class Sketch : NSObject {
         var brightness: Double = 5
         var hue: Double = x
         
+       
         if audioKitStarted {
             
             updateMicrophoneInputAnalysis()
@@ -116,7 +133,10 @@ class Sketch : NSObject {
                 if agents[i].isOverlapping(this: agents[j]) {
                     //distance between circles (length of lines) corelates to alpha of lines
                     let distance = map(value: Double(distanceBetween(a: agents[i].centre, b: agents[j].centre)), fromLower: 0, fromUpper: 110, toLower: 0, toUpper: 10)
+                    
+                    //adjust line colour based on hue, brightness and distance variables
                     canvas.lineColor = Color.init(hue: Int(hue), saturation: 100, brightness: Int(brightness), alpha: Int(distance))
+                    
                     canvas.drawLine(from: agents[i].centre, to: agents[j].centre)
                 }
             }
