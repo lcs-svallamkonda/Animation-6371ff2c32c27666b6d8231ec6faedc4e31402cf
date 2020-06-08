@@ -68,6 +68,10 @@ class Sketch : NSObject {
             }
         }
     
+        //every minute
+           if canvas.frameCount % 4000 == 0 {
+               clearCanvas()
+           }
         
         //DEBUG: Print x values
         print("\(x) is the x value")
