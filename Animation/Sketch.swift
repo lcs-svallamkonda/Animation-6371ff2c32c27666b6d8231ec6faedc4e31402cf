@@ -10,7 +10,7 @@ class Sketch : NSObject {
     
     // Create an array of many agents
     var agents: [Agent] = []
-        
+    
     // Set up objects needed for microphone analysis
     // SOURCE: https://audiokit.io/examples/MicrophoneAnalysis/
     var mic: AKMicrophone!
@@ -52,22 +52,22 @@ class Sketch : NSObject {
     // this variable won't update since it is outside the draw function
     // Use x to randomly choose a colour for the animation
     var x: Double = random(in: 0...360)
-   
+    
     
     // This function runs repeatedly, forever, to create the animated effect
     func draw() {
-    
+        
         //every 15 seconds
         if canvas.frameCount % 1000 == 0{
             
             //colour of animation changes
-            if x + 50 > 360{
+            if x + 50 > 360 {
                 x = Double.random(in: 0...15)
             } else {
                 x += 50
             }
         }
-    
+        
         
         //DEBUG: Print x values
         print("\(x) is the x value")
@@ -85,7 +85,7 @@ class Sketch : NSObject {
             
             // Ask for permission to access the microphone, then start audio kit
             getMicrophoneAccessPermission()
-
+            
         }
         
         // See what's happening with the microphone, if AudioKit is available
@@ -94,13 +94,13 @@ class Sketch : NSObject {
         var brightness: Double = 5
         var hue: Double = x
         
-       
+        
         if audioKitStarted {
             
             updateMicrophoneInputAnalysis()
             
             
-           // Adjust how hue changes based on frequency
+            // Adjust how hue changes based on frequency
             hue = map(value: tracker.frequency, fromLower: 0, fromUpper: 2500, toLower: x, toUpper: x + 100)
             // Adjust how brightness changes based on amplitude
             brightness = map(value: tracker.amplitude, fromLower: 0, fromUpper: 1, toLower: 25, toUpper: 100)
@@ -109,16 +109,16 @@ class Sketch : NSObject {
             print(tracker.amplitude)
             print(tracker.frequency)
             
-//            // Change direction when loud sound occurs
-//            if angle > 2.5 {
-//
-//                if turnRight == true {
-//                    turnRight = false
-//                } else {
-//                    turnRight = true
-//                }
-//
-//            }
+            //            // Change direction when loud sound occurs
+            //            if angle > 2.5 {
+            //
+            //                if turnRight == true {
+            //                    turnRight = false
+            //                } else {
+            //                    turnRight = true
+            //                }
+            //
+            //            }
         }
         
         //Checks for overlaps between all agents
@@ -144,7 +144,7 @@ class Sketch : NSObject {
         
         
     }
-
+    
     // Clear the canvas
     func clearCanvas() {
         
@@ -176,7 +176,7 @@ class Sketch : NSObject {
             }
             
             let frequencyText = String(format: "%0.1f", tracker.frequency)
-//            print("Frequency is: \(frequencyText)")
+            //            print("Frequency is: \(frequencyText)")
             
             var frequency = trackerFrequency
             while frequency > Float(noteFrequencies[noteFrequencies.count - 1]) {
@@ -199,14 +199,14 @@ class Sketch : NSObject {
             let octave = Int(log2f(trackerFrequency / frequency))
             
             let noteNameWithSharps =  "\(noteNamesWithSharps[index])\(octave)"
-//            print("Note name with sharps is: \(noteNameWithSharps)")
+            //            print("Note name with sharps is: \(noteNameWithSharps)")
             let noteNameWithFlats = "\(noteNamesWithFlats[index])\(octave)"
-//            print("Note name with flats is: \(noteNameWithFlats)")
+            //            print("Note name with flats is: \(noteNameWithFlats)")
             
         }
         
         let amplitudeValue = String(format: "%0.2f", tracker.amplitude)
-//        print("Amplitude is: \(amplitudeValue)")
+        //        print("Amplitude is: \(amplitudeValue)")
         
     }
     
@@ -241,7 +241,7 @@ class Sketch : NSObject {
     
     // Setup microphone capture and start audio kit
     func setupCaptureSession() {
-
+        
         // Allow for audio input
         AKSettings.audioInputEnabled = true
         
