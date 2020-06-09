@@ -62,7 +62,7 @@ class Sketch : NSObject {
             
             //colour of animation changes
             if x + 50 > 360{
-                x = 0
+                x = Double.random(in: 0...15)
             } else {
                 x += 50
             }
