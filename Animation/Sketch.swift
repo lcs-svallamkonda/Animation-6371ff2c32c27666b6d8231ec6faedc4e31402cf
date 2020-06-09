@@ -61,17 +61,13 @@ class Sketch : NSObject {
         if canvas.frameCount % 1000 == 0{
             
             //colour of animation changes
-            if x + 25 > 360{
+            if x + 50 > 360{
                 x = 0
             } else {
-                x += 25
+                x += 50
             }
         }
     
-        //every minute
-           if canvas.frameCount % 4000 == 0 {
-               clearCanvas()
-           }
         
         //DEBUG: Print x values
         print("\(x) is the x value")
